@@ -1,5 +1,4 @@
 import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } from "plaid";
-import Service from "../base/service";
 import { config } from "@/config/config";
 
 export class PlaidService {
