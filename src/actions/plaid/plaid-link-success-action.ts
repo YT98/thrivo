@@ -1,7 +1,9 @@
 'use server';
 
 import { PlaidService } from "@/services";
+import { AccessTokenService } from "@/services/prisma";
 import { ActionResponse } from "@/types";
+import { PrismaClient } from "@prisma/client";
 
 async function exchangeAccessToken(publicToken: string): Promise<string> {
     const plaidService = new PlaidService();
@@ -11,15 +13,15 @@ async function exchangeAccessToken(publicToken: string): Promise<string> {
 }
 
 async function storeAccessToken(accessToken: string): Promise<void> {
-    // TODO: Store access token in database
-    console.log(accessToken);
+    const accessTokenService = new AccessTokenService();
+    accessTokenService.connect();
+    await accessTokenService.createAccessToken(accessToken);
 }
 
 export default async function plaidLinkSuccessAction(publicToken: string): Promise<ActionResponse> {
     try {
-        console.log("plaidLinkSuccessAction")
         const accessToken = await exchangeAccessToken(publicToken);
-        storeAccessToken(accessToken);
+                storeAccessToken(accessToken);
         return {
             status: 200,
             message: "Successfully exchanged public token for access token",
