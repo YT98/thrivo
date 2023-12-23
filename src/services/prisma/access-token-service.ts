@@ -1,27 +1,20 @@
-import { PrismaClient } from "@prisma/client";
+import { AccessToken, Prisma, PrismaClient } from "@prisma/client";
+import PrismaServiceBase, { IPrismaService } from "./prisma-service-base";
 
-export class AccessTokenService {
-    private prismaClient?: PrismaClient;
-
+export class AccessTokenService extends PrismaServiceBase {
     constructor() {
-        this.prismaClient = undefined;
+        super();
     }
 
-    public connect() {
-        this.prismaClient = new PrismaClient();
-    }
-
-    public async createAccessToken(accessToken: string) {
+    public async create(accessToken: Prisma.AccessTokenCreateInput): Promise<AccessToken> {
         if (!this.prismaClient) {
             throw new Error("Prisma client is not connected");
         }
-        await this.prismaClient.accessToken.create({
-            data: {
-                token: accessToken,
-            }
+        const res = await this.prismaClient.accessToken.create({
+            data: accessToken
         });
         this.prismaClient.$disconnect();
+        return res;
     }
-
 
 }

@@ -16,3 +16,11 @@ model AccessToken {
   updatedAt DateTime @updatedAt
   token     String   @unique
 }
+
+model PlaidInstitution {
+  id                 String   @id @default(uuid())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  name               String
+  plaidInstitutionId String   @unique
+}

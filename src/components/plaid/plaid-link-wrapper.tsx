@@ -13,20 +13,11 @@ const PlaidLinkWrapper = (props: IPlaidLinkWrapperProps) => {
     const config: PlaidLinkOptions = {
         token: linkToken.link_token,
         onSuccess: (public_token, metadata) => {
-            console.log("success");
-            const plaidLinkSuccessActionResponse = plaidLinkSuccessAction(public_token);
-            console.log(plaidLinkSuccessActionResponse);
+            const plaidLinkSuccessActionResponse = plaidLinkSuccessAction(public_token, metadata);
         },
         onExit: (err, metadata) => {
-            console.log("exit");
-            console.log(err);
-            console.log(metadata);
-        },
-        onEvent: (eventName, metadata) => {
-            console.log("event");
-            console.log(eventName);
-            console.log(metadata);
-        },
+            // TODO: do something with err
+        }
       };
     const { open, ready, error, exit } = usePlaidLink(config);
 
