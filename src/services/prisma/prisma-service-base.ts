@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import prisma from "../../db/db";
 
 export default class PrismaServiceBase {
     protected prismaClient?: PrismaClient;
@@ -8,6 +9,6 @@ export default class PrismaServiceBase {
     }
 
     public connect() {
-        this.prismaClient = new PrismaClient();
+        this.prismaClient = prisma;
     }
 }
