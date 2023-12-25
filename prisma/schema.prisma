@@ -11,16 +11,34 @@ datasource db {
 }
 
 model AccessToken {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  token     String   @unique
+  id           String         @id @default(uuid())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  token        String         @unique
+  PlaidAccount PlaidAccount[]
 }
 
 model PlaidInstitution {
-  id                 String   @id @default(uuid())
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                 String         @id @default(uuid())
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
   name               String
-  plaidInstitutionId String   @unique
+  plaidInstitutionId String         @unique
+  PlaidAccount       PlaidAccount[]
+}
+
+model PlaidAccount {
+  id                 String           @id @default(uuid())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  name               String
+  mask               String
+  type               String
+  subtype            String
+  verificationStatus String?
+  plaidAccountId     String           @unique
+  plaidInstitutionId String
+  plaidInstitution   PlaidInstitution @relation(fields: [plaidInstitutionId], references: [id])
+  accessTokenId      String
+  accessToken        AccessToken      @relation(fields: [accessTokenId], references: [id])
 }

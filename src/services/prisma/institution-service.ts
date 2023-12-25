@@ -1,7 +1,7 @@
-import PrismaServiceBase, { IPrismaService } from "./prisma-service-base";
+import PrismaServiceBase from "./prisma-service-base";
 import { PlaidInstitution, Prisma } from "@prisma/client";
 
-export class InstitutionService extends PrismaServiceBase {
+export default class InstitutionService extends PrismaServiceBase {
     constructor() {
         super();
     }
