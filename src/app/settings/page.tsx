@@ -1,3 +1,4 @@
+import Header from "@/components/header/header";
 import PlaidLinkWrapper from "@/components/plaid/plaid-link-wrapper";
 import { PlaidService } from "@/services/plaid/plaid-service";
 import { LinkTokenCreateResponse } from "plaid";
@@ -14,9 +15,11 @@ const SettingsPage = async () => {
     const linkTokenData = await getLinkTokenData();
 
     return (
-        <div>
-            <h1>Settings</h1>
-            <PlaidLinkWrapper linkToken={linkTokenData} />
+        <div className="container py-20 px-10">
+            <Header title="Settings" />
+            <div className="container mx-auto">
+                <PlaidLinkWrapper linkToken={linkTokenData} />
+            </div>
         </div>
     );
 };

@@ -24,7 +24,7 @@ const PlaidLinkWrapper = (props: IPlaidLinkWrapperProps) => {
     return (
         <div>
             <h1>Plaid Link Wrapper</h1>
-            <button onClick={() => open()} disabled={!ready}>
+            <button className="btn" onClick={() => open()} disabled={!ready}>
                 Connect a bank account
             </button>
         </div>
