@@ -1,18 +1,18 @@
-import { usePlaidAccountsWithInstitution } from "@/hooks/accounts"
+'use client';
 
-const AccountTable = async () => {
-    const accounts = await usePlaidAccountsWithInstitution();
+import { AccountWithInstitution } from "@/services/prisma/plaid-account-service";
+import { useState } from "react";
+import AccountTableRow from "./account-table-row";
 
-    const accountRows = accounts.map((account, index) => (
-        <tr key={index}>
-            <th></th>
-            <th> {account.name} </th>
-            <th> {account.type} </th>
-            <th> {account.plaidInstitution.name} </th>
-            <th> {account.createdAt.toDateString()} </th>
-            <th> {account.updatedAt.toDateString()} </th>
-        </tr>
-    ))
+interface AccountTableProps {
+    accounts: AccountWithInstitution[];
+}
+
+const AccountTable = (props: AccountTableProps) => {
+
+    const { accounts } = props;
+
+    const accountRows = accounts.map((account, index) => <AccountTableRow key={index} account={account} />);
 
     return (
         <div className="overflow-x-auto">
@@ -25,7 +25,7 @@ const AccountTable = async () => {
                     <th>Type</th>
                     <th>Bank</th>
                     <th>Created Date</th>
-                    <th>Updated Date</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody> {accountRows} </tbody>
