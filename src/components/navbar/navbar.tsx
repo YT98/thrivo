@@ -18,6 +18,10 @@ const menuConfig = [
         ]
     },
     {
+      "label": "Budgets",
+      "href": "/budgets"
+    },
+    {
         "label": "Settings",
         "href": "/settings"
     }
