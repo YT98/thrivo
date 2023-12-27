@@ -6,10 +6,12 @@ import { PlaidLinkOptions, usePlaidLink } from "react-plaid-link";
 
 interface IPlaidLinkWrapperProps {
     linkToken: LinkTokenCreateResponse;
+    buttonLabel: string;
 }
 
 const PlaidLinkWrapper = (props: IPlaidLinkWrapperProps) => {
-    const { linkToken } = props;
+    const { linkToken, buttonLabel } = props;
+
     const config: PlaidLinkOptions = {
         token: linkToken.link_token,
         onSuccess: (public_token, metadata) => {
@@ -22,12 +24,9 @@ const PlaidLinkWrapper = (props: IPlaidLinkWrapperProps) => {
     const { open, ready, error, exit } = usePlaidLink(config);
 
     return (
-        <div>
-            <h1>Plaid Link Wrapper</h1>
-            <button className="btn" onClick={() => open()} disabled={!ready}>
-                Connect a bank account
-            </button>
-        </div>
+        <button className="btn" onClick={() => open()} disabled={!ready}>
+            {buttonLabel}
+        </button>
     )
 }
 

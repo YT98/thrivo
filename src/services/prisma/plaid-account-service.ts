@@ -7,7 +7,6 @@ export default class PlaidAccountService extends PrismaServiceBase {
     }
 
     public async createWithInstitution(plaidAccount: Prisma.PlaidAccountCreateInput): Promise<PlaidAccount> {
-        console.log("Creating plaid account", plaidAccount);
         if (!this.prismaClient) {
             throw new Error("Prisma client is not connected");
         }
@@ -18,6 +17,38 @@ export default class PlaidAccountService extends PrismaServiceBase {
             return res;
         } catch (error) {
             console.log("Error creating plaid account", error);
+            throw error;
+        }
+    }
+
+    public async getAllAccounts() {
+        if (!this.prismaClient) {
+            throw new Error("Prisma client is not connected");
+        }
+        try {
+            const res = await this.prismaClient.plaidAccount.findMany({});
+            this.prismaClient.$disconnect();
+            return res;
+        } catch (error) {
+            console.log("Error getting plaid accounts", error);
+            throw error;
+        }
+    }
+
+    public async getAllAccountsWithInstitution() {
+        if (!this.prismaClient) {
+            throw new Error("Prisma client is not connected");
+        }
+        try {
+            const res = await this.prismaClient.plaidAccount.findMany({
+                include: {
+                    plaidInstitution: true
+                }
+            });
+            this.prismaClient.$disconnect();
+            return res;
+        } catch (error) {
+            console.log("Error getting plaid accounts", error);
             throw error;
         }
     }

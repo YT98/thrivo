@@ -1,3 +1,4 @@
+import AccountTable from "@/components/account-table/account-table";
 import Header from "@/components/header/header";
 import PlaidLinkWrapper from "@/components/plaid/plaid-link-wrapper";
 import { PlaidService } from "@/services/plaid/plaid-service";
@@ -18,7 +19,11 @@ const SettingsPage = async () => {
         <div className="container py-20 px-10">
             <Header title="Settings" />
             <div className="container mx-auto">
-                <PlaidLinkWrapper linkToken={linkTokenData} />
+                <h2> Your Accounts </h2>
+                <AccountTable />
+                <div className="pt-5">
+                    <PlaidLinkWrapper buttonLabel="Add a bank account" linkToken={linkTokenData} />
+                </div>
             </div>
         </div>
     );
